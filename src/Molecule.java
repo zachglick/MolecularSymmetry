@@ -2,38 +2,27 @@ import java.util.ArrayList;
 
 public class Molecule {
 	
-	private ArrayList<Atom> atoms;
-	
+	ArrayList<Atom> atoms;
+	double x_com, y_com, z_com;
+
 	Molecule(){
 		atoms = new ArrayList<Atom>();
+		x_com = 0;
+		y_com = 0;
+		z_com = 0;
+	}
+	
+	Molecule(String fname){
+		
 	}
 	
 	public void addAtom(Atom a){
+		x_com = (x_com*atoms.size() + a.x)/(atoms.size()+1);
+		y_com = (y_com*atoms.size() + a.y)/(atoms.size()+1);
+		z_com = (z_com*atoms.size() + a.z)/(atoms.size()+1);
 		atoms.add(a);
-		resetCOM();
+		ArrayList<Atom> centeredAtoms = new ArrayList<Atom>();
 	}
 	
-	private void resetCOM(){
-		
-		double x_marg = 0.0;
-		double y_marg = 0.0;
-		double z_marg = 0.0;
-		
-		for(Atom a : atoms){
-			x_marg += a.x;
-			y_marg += a.y;
-			z_marg += a.z;
-		}
-		
-		x_marg /= atoms.size();
-		y_marg /= atoms.size();
-		z_marg /= atoms.size();
-		
-		for(Atom a : atoms){
-			a.x -= x_marg;
-			a.y -= y_marg;
-			a.z -= z_marg;
-		}
-	}
 		
 }
